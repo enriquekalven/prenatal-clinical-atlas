@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "project-maui"
+  },
+  "targets": {
+    "project-maui": {
+      "hosting": {
+        "prenatal-clinical-atlas": [
+          "prenatal-clinical-atlas"
+        ]
+      }
+    }
+  }
+}

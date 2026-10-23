@@ -1,0 +1,1320 @@
+/* ==========================================================================
+   Prenatal Clinical Atlas — Medical Editorial Design System
+   WCAG 2.1 AA Compliant | Responsive (320px - 1440px+) | Print-Ready
+   ========================================================================== */
+
+:root {
+  /* Surface & Background Tokens (Warm Clinical Alabaster & Slate) */
+  --bg-page: #F9F7F2;
+  --bg-surface: #FFFFFF;
+  --bg-surface-subtle: #F2EFE9;
+  --bg-surface-elevated: #FCFBF9;
+  --bg-atlas-stage: #102129;
+  --bg-atlas-stage-accent: #18323E;
+
+  /* Typography Tokens */
+  --text-primary: #142229;
+  --text-secondary: #3E525D;
+  --text-muted: #5C707B;
+  --text-on-dark: #F4F7F8;
+  --text-on-dark-muted: #B6C8D1;
+
+  /* Clinical Semantic Accent Tokens */
+  --accent-primary: #0D6960;
+  --accent-primary-hover: #09524B;
+  --accent-primary-soft: #E5F3F1;
+  --accent-embryo: #C0562F;
+  --accent-embryo-soft: #FCEEE8;
+  --accent-info: #1D5B86;
+  --accent-info-soft: #E8F1F8;
+
+  /* Triage & Risk Status Tokens (High Contrast + Icon Paired) */
+  --status-emergency-bg: #FEF2F2;
+  --status-emergency-border: #DC2626;
+  --status-emergency-text: #991B1B;
+  --status-urgent-bg: #FFFBEB;
+  --status-urgent-border: #D97706;
+  --status-urgent-text: #92400E;
+  --status-safe-bg: #ECFDF5;
+  --status-safe-border: #059669;
+  --status-safe-text: #065F46;
+
+  /* Borders & Dividers */
+  --border-default: #DCD7CD;
+  --border-strong: #B8B0A2;
+  --focus-ring: #0D6960;
+
+  /* Spacing Scale (0.25rem increments) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Border Radius Scale */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Typography Families */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Skip Link for Keyboard Accessibility */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-4);
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-3);
+}
+
+/* Focus Visibility */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+}
+
+/* Top Clinical Header */
+.clinical-header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.clinical-crest {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.brand-subtitle {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.badge-acog {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--accent-primary-soft);
+  color: var(--accent-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Primary Navigation Tabs & Language Selector */
+.header-actions-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.lang-switch-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--bg-surface-subtle);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.lang-switch-group .control-label {
+  margin: 0;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.lang-switch-group .control-select {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  min-width: 8.5rem;
+}
+
+.primary-nav {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.nav-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-tab:hover {
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-primary);
+}
+
+.nav-tab[aria-selected="true"] {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--accent-primary);
+}
+
+/* Patient Personalization Bar (Due Date / LMP / IVF / Risk Profile) */
+.personalization-bar {
+  background-color: var(--bg-surface-subtle);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.personalization-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--space-3);
+  align-items: end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.control-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.control-input,
+.control-select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.personal-summary-pill {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-left: 4px solid var(--accent-primary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.summary-pill-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.summary-pill-value {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.action-btn-group {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  transition: background-color 0.15s ease;
+}
+
+.btn:hover {
+  background-color: var(--bg-surface-subtle);
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+/* Main Container */
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.is-active {
+  display: block;
+}
+
+/* ==========================================================================
+   Week Scrubber & Trimester Ribbon
+   ========================================================================== */
+.scrubber-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.scrubber-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.trimester-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.trimester-btn {
+  appearance: none;
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.trimester-btn.is-active {
+  background-color: var(--accent-primary-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.week-navigation-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.week-slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.week-range-input {
+  flex: 1;
+  accent-color: var(--accent-primary);
+  height: 0.5rem;
+  cursor: pointer;
+}
+
+.week-grid-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.1rem, 1fr));
+  gap: 0.25rem;
+}
+
+.week-chip {
+  appearance: none;
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+}
+
+.week-chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+.week-chip.is-selected {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--accent-primary);
+  font-weight: 700;
+}
+
+/* Dot indicator for weeks with scheduled OB/Midwife visit or ultrasound */
+.week-chip.has-appointment::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--accent-embryo);
+  margin: 2px auto 0;
+}
+
+.week-chip.is-selected.has-appointment::after {
+  background-color: #FFFFFF;
+}
+
+.scrubber-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-embryo);
+}
+
+/* ==========================================================================
+   Main Two-Column Atlas Layout (Anatomical Stage + Clinical Briefing)
+   ========================================================================== */
+.atlas-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.atlas-grid > * {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .atlas-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+/* Left Column: Anatomical & Biometric Visualizer Card */
+.anatomical-stage-card {
+  background-color: var(--bg-atlas-stage);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  border: 1px solid #244352;
+  min-width: 0;
+}
+
+.stage-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.stage-week-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.stage-title-light {
+  color: #FFFFFF;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+}
+
+.stage-date-window {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-on-dark-muted);
+  text-align: right;
+}
+
+.svg-viewport-wrapper {
+  background: radial-gradient(circle at 48% 46%, #2D1219 0%, #161E29 58%, #0B141B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: 280px;
+  max-height: 560px;
+  position: relative;
+  margin-bottom: var(--space-5);
+  overflow: hidden;
+  box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.55);
+}
+
+.anatomical-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Visualization mode segmented control */
+.viewer-mode-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  background-color: rgba(255, 255, 255, 0.07);
+  padding: 0.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mode-btn {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-on-dark-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mode-btn:hover {
+  color: #FFFFFF;
+}
+
+.mode-btn[aria-pressed="true"] {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+}
+
+.mode-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Layered viewport (3D canvas / photoreal still / schematic SVG) */
+.viewport-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.viewport-layer[hidden] {
+  display: none;
+}
+
+.atlas3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+  outline-offset: -3px;
+}
+
+.atlas3d-canvas:active {
+  cursor: grabbing;
+}
+
+.viewer-live-telemetry {
+  position: absolute;
+  bottom: 2.15rem;
+  left: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(14, 24, 32, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FDECE8;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.26rem 0.55rem;
+  border-radius: var(--radius-sm);
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.telemetry-pulse-dot {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background-color: #FF5A5F;
+  box-shadow: 0 0 8px #FF5A5F;
+  animation: telemetry-heartbeat 0.85s ease-in-out infinite;
+}
+
+.viewer-live-telemetry.is-precardiac .telemetry-pulse-dot {
+  background-color: #38B2A6;
+  box-shadow: 0 0 6px #38B2A6;
+  animation: none;
+}
+
+@keyframes telemetry-heartbeat {
+  0%, 100% { transform: scale(0.88); opacity: 0.75; }
+  25% { transform: scale(1.28); opacity: 1; }
+  45% { transform: scale(0.95); opacity: 0.85; }
+  65% { transform: scale(1.14); opacity: 0.95; }
+}
+
+.viewer-overlay-controls {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  max-width: 68%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.28rem;
+  z-index: 2;
+}
+
+.viewer-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(16, 33, 41, 0.76);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.26rem 0.52rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.viewer-btn:hover {
+  background-color: rgba(24, 48, 60, 0.94);
+}
+
+.viewer-btn:active {
+  transform: scale(0.96);
+}
+
+.viewer-btn-accent {
+  background-color: rgba(180, 62, 58, 0.82);
+  border-color: rgba(255, 160, 148, 0.55);
+}
+
+.viewer-btn-accent:hover {
+  background-color: rgba(204, 72, 68, 0.95);
+}
+
+.viewer-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.viewer-btn[aria-pressed="true"] {
+  background-color: var(--accent-primary);
+  border-color: #38B2A6;
+}
+
+.viewer-hint {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-2);
+  z-index: 2;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--text-on-dark-muted);
+  pointer-events: none;
+}
+
+.viewer-building,
+.viewer-unsupported {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  padding: var(--space-4);
+}
+
+.viewer-building {
+  background-color: rgba(16, 33, 41, 0.55);
+}
+
+.viewer-unsupported {
+  background-color: rgba(16, 33, 41, 0.85);
+}
+
+.viewer-building[hidden],
+.viewer-unsupported[hidden] {
+  display: none;
+}
+
+.viewer-building::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  margin-right: var(--space-2);
+  animation: viewer-spin 0.9s linear infinite;
+}
+
+@keyframes viewer-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.viewport-photo {
+  margin: 0;
+}
+
+.viewport-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.viewport-photo figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #FFFFFF;
+  background: linear-gradient(to bottom, rgba(16, 33, 41, 0) 0%, rgba(16, 33, 41, 0.9) 70%);
+}
+
+.viewport-schematic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewport-schematic[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer-building::before {
+    animation: none;
+  }
+}
+
+/* Biometric Telemetry Strip */
+.biometrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .biometrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.biometric-box {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  min-width: 0;
+}
+
+.biometric-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-on-dark-muted);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.biometric-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  overflow-wrap: anywhere;
+}
+
+.organ-tags-bar {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.organ-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba(13, 105, 96, 0.45);
+  border: 1px solid #38B2A6;
+  color: #E6FFFA;
+  padding: 0.15rem var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* Right Column: Clinical Briefing Cards */
+.clinical-details-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.clinical-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.clinical-card.is-doctor-alert {
+  border-left: 5px solid var(--accent-embryo);
+  background-color: #FFFDFB;
+}
+
+.clinical-card.is-pearl {
+  border-left: 5px solid var(--accent-primary);
+  background-color: var(--bg-surface-elevated);
+}
+
+.card-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.card-eyebrow.eyebrow-visit {
+  color: var(--accent-embryo);
+}
+
+.milestone-list {
+  margin: var(--space-3) 0 0;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--text-primary);
+}
+
+.milestone-list li {
+  padding-left: var(--space-1);
+}
+
+/* ==========================================================================
+   Tab 2: ACOG Prenatal Schedule & Checklists
+   ========================================================================== */
+.section-intro-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.schedule-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.appointments-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.appointment-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .appointment-card {
+    grid-template-columns: 220px 1fr;
+  }
+}
+
+.appointment-card.is-completed {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-default);
+}
+
+.appointment-card.is-current-window {
+  border: 2px solid var(--accent-primary);
+}
+
+.appt-meta-col {
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .appt-meta-col {
+    border-bottom: none;
+    border-right: 1px solid var(--border-default);
+    padding-bottom: 0;
+    padding-right: var(--space-4);
+  }
+}
+
+.appt-week-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  background-color: var(--accent-primary-soft);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+}
+
+.appt-calendar-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.appt-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  margin-top: var(--space-2);
+}
+
+.appt-check-input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+.appt-details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 960px) {
+  .appt-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.appt-subbox {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.appt-subbox-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.high-risk-callout {
+  margin-top: var(--space-3);
+  background-color: var(--accent-info-soft);
+  border-left: 4px solid var(--accent-info);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Tab 3: Red-Flag Symptom Triage & Medication/Food Safety Lookup
+   ========================================================================== */
+.triage-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.triage-tier-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid;
+}
+
+.triage-tier-card.tier-emergency {
+  background-color: var(--status-emergency-bg);
+  border-color: var(--status-emergency-border);
+  color: var(--status-emergency-text);
+}
+
+.triage-tier-card.tier-urgent {
+  background-color: var(--status-urgent-bg);
+  border-color: var(--status-urgent-border);
+  color: var(--status-urgent-text);
+}
+
+.triage-tier-card.tier-routine {
+  background-color: var(--status-safe-bg);
+  border-color: var(--status-safe-border);
+  color: var(--status-safe-text);
+}
+
+.search-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  background-color: var(--bg-surface);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 240px;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.9375rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.triage-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.symptom-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-top: 4px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.symptom-card.urgency-emergency {
+  border-top-color: var(--status-emergency-border);
+}
+
+.symptom-card.urgency-urgent {
+  border-top-color: var(--status-urgent-border);
+}
+
+.symptom-card.urgency-routine {
+  border-top-color: var(--status-safe-border);
+}
+
+.urgency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem var(--space-2);
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+
+.urgency-badge.urgency-emergency {
+  background-color: var(--status-emergency-bg);
+  color: var(--status-emergency-text);
+  border: 1px solid var(--status-emergency-border);
+}
+
+.urgency-badge.urgency-urgent {
+  background-color: var(--status-urgent-bg);
+  color: var(--status-urgent-text);
+  border: 1px solid var(--status-urgent-border);
+}
+
+.urgency-badge.urgency-routine {
+  background-color: var(--status-safe-bg);
+  color: var(--status-safe-text);
+  border: 1px solid var(--status-safe-border);
+}
+
+/* Footer Disclaimer */
+.clinical-footer {
+  max-width: 1400px;
+  margin: var(--space-10) auto 0;
+  padding: var(--space-6);
+  border-top: 1px solid var(--border-default);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* Semantic Utility Classes (Strict CSP style-src 'self' Compliant) */
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mt-1 {
+  margin-top: var(--space-1);
+}
+
+.mt-2 {
+  margin-top: var(--space-2);
+}
+
+.mt-3 {
+  margin-top: var(--space-3);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-xs-muted {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.text-xs-muted-bold {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.text-sm-secondary {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.text-sm-bold {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.pearl-copy {
+  margin-top: var(--space-3);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Print Stylesheet for Doctor Visit Checklists */
+@media print {
+  .clinical-header,
+  .personalization-bar,
+  .scrubber-card,
+  .schedule-filter-bar,
+  .search-filter-row,
+  .btn {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  .tab-panel {
+    display: block !important;
+    margin-bottom: 2rem;
+  }
+
+  .appointment-card,
+  .clinical-card {
+    break-inside: avoid;
+    border: 1px solid #999999;
+  }
+}

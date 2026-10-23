@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none';"
+  />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <title>Prenatal Clinical Atlas — Interactive Conception-to-Birthday OB/GYN Reference (Weeks 1–42)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a href="#main-content" id="skip-link-el" class="skip-link">Skip to main clinical content</a>
+
+  <!-- Top Clinical Header & Navigation -->
+  <header class="clinical-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="clinical-crest" aria-hidden="true">Rx</div>
+        <div>
+          <h1 id="app-title-el">Prenatal Clinical Atlas</h1>
+          <div class="brand-subtitle">
+            <span id="app-subtitle-el">Conception-to-Birthday Interactive OB/GYN &amp; Embryology Reference</span>
+            <span id="badge-acog-el" class="badge-acog">ACOG / SMFM Aligned • Weeks 1–42</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions-group">
+        <nav class="primary-nav" role="tablist" aria-label="Clinical Atlas Sections">
+          <button
+            type="button"
+            class="nav-tab"
+            role="tab"
+            id="tab-btn-atlas"
+            aria-selected="true"
+            aria-controls="tab-atlas"
+            data-tab-target="tab-atlas"
+          >
+            1. Week-by-Week Atlas (W1–42)
+          </button>
+          <button
+            type="button"
+            class="nav-tab"
+            role="tab"
+            id="tab-btn-schedule"
+            aria-selected="false"
+            aria-controls="tab-schedule"
+            data-tab-target="tab-schedule"
+          >
+            2. Doctor Appointments &amp; Labs (15 Visits)
+          </button>
+          <button
+            type="button"
+            class="nav-tab"
+            role="tab"
+            id="tab-btn-triage"
+            aria-selected="false"
+            aria-controls="tab-triage"
+            data-tab-target="tab-triage"
+          >
+            3. Red-Flag Symptom Triage
+          </button>
+          <button
+            type="button"
+            class="nav-tab"
+            role="tab"
+            id="tab-btn-meds"
+            aria-selected="false"
+            aria-controls="tab-meds"
+            data-tab-target="tab-meds"
+          >
+            4. Safe Meds &amp; Nutrition Lookup
+          </button>
+        </nav>
+
+        <div class="lang-switch-group">
+          <label for="language-select" id="lang-select-label" class="control-label">Language</label>
+          <select id="language-select" class="control-select" aria-label="Language">
+            <option value="en">English (EN)</option>
+            <option value="es">Español (ES)</option>
+            <option value="zh">中文 (ZH)</option>
+            <option value="pt">Português (PT)</option>
+            <option value="ja">日本語 (JA)</option>
+            <option value="ko">한국어 (KO)</option>
+            <option value="it">Italiano (IT)</option>
+            <option value="fr">Français (FR)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Patient Gestational Calculator & Clinical Risk Overlay Bar -->
+  <section class="personalization-bar" aria-label="Gestational Dating Calculator and Risk Profile">
+    <div class="personalization-inner">
+      <div class="control-group">
+        <label for="dating-method-select" id="dating-method-label" class="control-label">Dating Method</label>
+        <select id="dating-method-select" class="control-select">
+          <option value="lmp" id="opt-dating-lmp">First Day of Last Period (LMP)</option>
+          <option value="edd" id="opt-dating-edd">Estimated Due Date (Ultrasound EDD)</option>
+          <option value="conception" id="opt-dating-conception">Ovulation / Conception Date</option>
+          <option value="ivf5" id="opt-dating-ivf5">IVF Day-5 Blastocyst Transfer Date</option>
+          <option value="ivf3" id="opt-dating-ivf3">IVF Day-3 Embryo Transfer Date</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="reference-date-input" id="ref-date-label" class="control-label">Reference Date (Auto-Maps Calendar)</label>
+        <input type="date" id="reference-date-input" class="control-input" />
+      </div>
+
+      <div class="control-group">
+        <label for="risk-profile-select" id="risk-profile-label" class="control-label">Clinical Care Pathway Overlay</label>
+        <select id="risk-profile-select" class="control-select">
+          <option value="standard" id="opt-risk-standard">Standard Low-Risk Singleton (ACOG)</option>
+          <option value="ama35" id="opt-risk-ama35">Advanced Maternal Age (35+ / AMA Overlay)</option>
+          <option value="gdm_highrisk" id="opt-risk-gdm">High-Risk / Gestational Diabetes / HTN</option>
+          <option value="twins" id="opt-risk-twins">Twin / Multiples Gestation Protocol</option>
+        </select>
+      </div>
+
+      <div class="personal-summary-pill" aria-live="polite">
+        <span class="summary-pill-title" id="personal-ga-summary">Viewing Week 8 of 42</span>
+        <span class="summary-pill-value" id="personal-edd-summary">Enter date to map calendar</span>
+      </div>
+
+      <div class="action-btn-group">
+        <button type="button" id="btn-jump-current-week" class="btn btn-primary" disabled>
+          Jump to My Current Week
+        </button>
+        <button type="button" id="btn-print-checklist" class="btn" title="Print Personalized Schedule &amp; Checklist">
+          Print Clinical Summary
+        </button>
+        <button type="button" id="btn-reset-data" class="btn" title="Reset saved dates and checkboxes">
+          Reset
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Workspace -->
+  <main id="main-content" class="main-container">
+    <!-- ====================================================================
+         TAB 1: Interactive Week-by-Week Embryology & Clinical Atlas
+         ==================================================================== -->
+    <section
+      id="tab-atlas"
+      class="tab-panel is-active"
+      role="tabpanel"
+      aria-labelledby="tab-btn-atlas"
+    >
+      <!-- Interactive 42-Week Scrubber Card -->
+      <div class="scrubber-card">
+        <div class="scrubber-header">
+          <div class="trimester-pills" role="group" aria-label="Jump by Trimester">
+            <button
+              type="button"
+              id="btn-tri-1"
+              class="trimester-btn"
+              data-trimester-jump="1"
+              data-trimester-start="1"
+            >
+              Periconception &amp; 1st Trimester (W1–13)
+            </button>
+            <button
+              type="button"
+              id="btn-tri-2"
+              class="trimester-btn"
+              data-trimester-jump="2"
+              data-trimester-start="14"
+            >
+              2nd Trimester (W14–27)
+            </button>
+            <button
+              type="button"
+              id="btn-tri-3"
+              class="trimester-btn"
+              data-trimester-jump="3"
+              data-trimester-start="28"
+            >
+              3rd Trimester (W28–40)
+            </button>
+            <button
+              type="button"
+              id="btn-tri-4"
+              class="trimester-btn"
+              data-trimester-jump="4"
+              data-trimester-start="41"
+            >
+              Late-Term &amp; Delivery (W41–42)
+            </button>
+          </div>
+
+          <div class="week-navigation-controls">
+            <button type="button" id="btn-prev-week" class="btn" aria-label="Previous gestational week">
+              ← Prev Week
+            </button>
+            <span id="week-slider-label" class="summary-pill-value">Week 8 of 42</span>
+            <button type="button" id="btn-next-week" class="btn" aria-label="Next gestational week">
+              Next Week →
+            </button>
+          </div>
+        </div>
+
+        <div class="week-slider-row">
+          <label for="week-range-slider" id="scrub-timeline-label" class="control-label">Scrub Timeline:</label>
+          <input
+            type="range"
+            id="week-range-slider"
+            class="week-range-input"
+            min="1"
+            max="42"
+            step="1"
+            value="8"
+            aria-label="Select gestational week from 1 to 42"
+          />
+        </div>
+
+        <div id="week-grid-strip" class="week-grid-strip" role="group" aria-label="Select Week 1 through 42"></div>
+
+        <div class="scrubber-legend">
+          <span class="legend-item">
+            <span class="legend-dot" aria-hidden="true"></span>
+            <span id="legend-dot-text">Orange dot indicates a scheduled ACOG OB/Midwife appointment, lab, vaccine, or ultrasound window</span>
+          </span>
+          <span id="legend-tip-text">Tip: Use the slider, click any week number (1–42), or enter your LMP/Due Date above to map exact calendar dates.</span>
+        </div>
+      </div>
+
+      <!-- Two-Column Clinical Atlas Layout -->
+      <div class="atlas-grid" aria-live="polite">
+        <!-- Left Column: Dynamic SVG Anatomical Visualizer & Biometric Telemetry -->
+        <div class="anatomical-stage-card">
+          <div class="stage-top-meta">
+            <div>
+              <span id="stage-week-badge" class="stage-week-badge">WEEK 8 • 1st Trimester</span>
+              <h2 id="stage-title-heading" class="stage-title-light">Four-Chambered Heart Septation &amp; Webbed Digits</h2>
+            </div>
+            <div id="stage-date-window" class="stage-date-window">Days 50–56 of Gestation</div>
+          </div>
+
+          <div class="viewer-mode-toggle" role="group" aria-label="Visualization mode">
+            <button type="button" id="btn-mode-3d" class="mode-btn" data-view-mode="3d" aria-pressed="true">3D Interactive</button>
+            <button type="button" id="btn-mode-photo" class="mode-btn" data-view-mode="photo" aria-pressed="false">Photoreal Still</button>
+            <button type="button" id="btn-mode-schematic" class="mode-btn" data-view-mode="schematic" aria-pressed="false">Schematic</button>
+          </div>
+
+          <div id="visualizer-stage" class="svg-viewport-wrapper">
+            <div id="viewport-3d" class="viewport-layer viewport-3d">
+              <div id="viewer-live-telemetry" class="viewer-live-telemetry" aria-live="polite">
+                <span class="telemetry-pulse-dot" aria-hidden="true"></span>
+                <span id="viewer-bpm-readout">FHR 160 BPM • In-Utero Active</span>
+              </div>
+              <div class="viewer-overlay-controls" role="group" aria-label="3D view and interactive womb controls">
+                <button type="button" id="btn-3d-kick" class="viewer-btn viewer-btn-accent" title="Tap the womb to trigger a fetal stretch and kick reflex (Shortcut: K)">Gentle Kick</button>
+                <button type="button" id="btn-3d-audio" class="viewer-btn" aria-pressed="false" title="Listen to synthesized OB ultrasound Doppler heartbeat audio at this week's exact BPM">Doppler Audio</button>
+                <button type="button" id="btn-3d-autorotate" class="viewer-btn" aria-pressed="true">Auto-rotate</button>
+                <button type="button" id="btn-3d-xray" class="viewer-btn" aria-pressed="false" title="See the beating heart, liver, brain and spine through translucent skin">X-Ray</button>
+                <button type="button" id="btn-3d-sac" class="viewer-btn" aria-pressed="true" title="Show or hide the amniotic sac and uterine wall">Sac</button>
+                <button type="button" id="btn-3d-reset" class="viewer-btn">Reset View</button>
+              </div>
+              <p id="viewer-hint" class="viewer-hint">Drag to rotate • Scroll/pinch to zoom • Click baby or press K for a Gentle Kick • Doppler Audio plays live FHR</p>
+              <div id="viewer-building" class="viewer-building" role="status" hidden>Sculpting anatomy…</div>
+              <div id="viewer-unsupported" class="viewer-unsupported" role="alert" hidden>
+                Interactive 3D requires WebGL, which this browser has disabled. Showing the schematic and photoreal views instead.
+              </div>
+            </div>
+            <figure id="viewport-photo" class="viewport-layer viewport-photo" hidden>
+              <img id="photo-still-img" alt="" />
+              <figcaption id="photo-still-caption"></figcaption>
+            </figure>
+            <div id="svg-viewport-mount" class="viewport-layer viewport-schematic" hidden></div>
+          </div>
+
+          <div class="biometrics-grid">
+            <div class="biometric-box">
+              <span id="bio-stage-label" class="biometric-label">Developmental Stage</span>
+              <span id="bio-stage" class="biometric-value">Embryo</span>
+            </div>
+            <div class="biometric-box">
+              <span id="bio-length-label" class="biometric-label">Length (CRL / CHL)</span>
+              <span id="bio-length" class="biometric-value">15 – 17 mm</span>
+            </div>
+            <div class="biometric-box">
+              <span id="bio-weight-label" class="biometric-label">Estimated Weight</span>
+              <span id="bio-weight" class="biometric-value">1.1 g</span>
+            </div>
+            <div class="biometric-box">
+              <span id="bio-fhr-label" class="biometric-label">Expected Heart Rate</span>
+              <span id="bio-fhr" class="biometric-value">145 – 165 BPM</span>
+            </div>
+          </div>
+
+          <div id="organ-tags-bar" class="organ-tags-bar"></div>
+        </div>
+
+        <!-- Right Column: Doctor Check-In, Organogenesis Milestones & Maternal Physiology -->
+        <div id="clinical-details-stack" class="clinical-details-stack"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: Complete ACOG Prenatal Appointment, Ultrasound, Lab & Vaccine Schedule
+         ==================================================================== -->
+    <section
+      id="tab-schedule"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-btn-schedule"
+    >
+      <div class="section-intro-bar">
+        <div>
+          <h2 id="sched-heading-el">ACOG Prenatal Care Roadmap (Weeks 6–42)</h2>
+          <p id="sched-intro-el" class="text-sm-secondary mt-1">
+            Standard obstetric visit cadence: Every 4 weeks (Weeks 4–28), Every 2 weeks (Weeks 28–36), and Weekly (Weeks 36–41), plus twice-weekly late-term NST/BPP surveillance at Week 41+. Check off visits as you complete them.
+          </p>
+        </div>
+
+        <div class="schedule-filter-bar" role="group" aria-label="Filter appointments by trimester">
+          <button type="button" id="sched-filter-all" class="trimester-btn is-active" data-sched-filter="all">All 15 Visits</button>
+          <button type="button" id="sched-filter-1" class="trimester-btn" data-sched-filter="1">1st Trimester (W6–13)</button>
+          <button type="button" id="sched-filter-2" class="trimester-btn" data-sched-filter="2">2nd Trimester (W14–28)</button>
+          <button type="button" id="sched-filter-3" class="trimester-btn" data-sched-filter="3">3rd Trimester (W30–40)</button>
+          <button type="button" id="sched-filter-4" class="trimester-btn" data-sched-filter="4">Late-Term (W41–42)</button>
+        </div>
+      </div>
+
+      <div id="appointments-timeline-list" class="appointments-timeline"></div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: Trimester-Aware Red-Flag Symptom Triage
+         ==================================================================== -->
+    <section
+      id="tab-triage"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-btn-triage"
+    >
+      <div class="section-intro-bar">
+        <div>
+          <h2 id="triage-heading-el">Obstetric Symptom Triage: When to Call OB vs. Go to L&amp;D Immediately</h2>
+          <p id="triage-intro-el" class="text-sm-secondary mt-1">
+            Distinguishing normal maternal physiological adaptations from urgent obstetric warning signs. When in doubt, Labor &amp; Delivery triage and your on-call OB/Midwife prefer you call early.
+          </p>
+        </div>
+      </div>
+
+      <div class="triage-banner-grid">
+        <div class="triage-tier-card tier-emergency">
+          <h3 id="tier-1-title-el">1. Immediate L&amp;D / Emergency (Red)</h3>
+          <p id="tier-1-desc-el" class="mt-1">
+            Proceed directly to Labor &amp; Delivery Triage (if ≥20 weeks) or the nearest Emergency Department. Do not wait for a callback.
+          </p>
+        </div>
+        <div class="triage-tier-card tier-urgent">
+          <h3 id="tier-2-title-el">2. Same-Day OB Call Within 1–4 Hours (Amber)</h3>
+          <p id="tier-2-desc-el" class="mt-1">
+            Page your OB/Midwife on-call line today for targeted lab work, fetal monitoring, or prescription treatment.
+          </p>
+        </div>
+        <div class="triage-tier-card tier-routine">
+          <h3 id="tier-3-title-el">3. Physiological Adaptation (Green)</h3>
+          <p id="tier-3-desc-el" class="mt-1">
+            Expected hormonal or biomechanical changes of pregnancy that can be managed safely at home and discussed at your next scheduled visit.
+          </p>
+        </div>
+      </div>
+
+      <div class="search-filter-row">
+        <input
+          type="search"
+          id="symptom-search-input"
+          class="search-input"
+          placeholder="Search symptoms (e.g., headache, bleeding, kicks, itching, fever, Braxton Hicks)..."
+          aria-label="Search obstetric symptoms"
+        />
+        <select id="symptom-urgency-filter" class="control-select" aria-label="Filter symptoms by urgency tier">
+          <option value="all" id="opt-urg-all">All Urgency Tiers</option>
+          <option value="emergency" id="opt-urg-emergency">Immediate L&amp;D / Emergency Only</option>
+          <option value="urgent" id="opt-urg-urgent">Same-Day OB Call Only</option>
+          <option value="routine" id="opt-urg-routine">Normal Physiological Changes Only</option>
+        </select>
+      </div>
+
+      <div id="symptom-cards-grid" class="triage-cards-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: Evidence-Based Medication, Supplement & Nutrition Quick-Lookup
+         ==================================================================== -->
+    <section
+      id="tab-meds"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-btn-meds"
+    >
+      <div class="section-intro-bar">
+        <div>
+          <h2 id="meds-heading-el">Physician-Approved Medication, Supplement &amp; Nutrition Safety Lookup</h2>
+          <p id="meds-intro-el" class="text-sm-secondary mt-1">
+            Quick reference aligned with ACOG Practice Bulletins and FDA Pregnancy &amp; Lactation Labeling Rule (PLLR) guidance. Always confirm patient-specific dosing with your prenatal care provider.
+          </p>
+        </div>
+      </div>
+
+      <div class="search-filter-row">
+        <input
+          type="search"
+          id="med-search-input"
+          class="search-input"
+          placeholder="Search medications, supplements, or foods (e.g., Tylenol, Ibuprofen, Unisom, caffeine, fish, cheese)..."
+          aria-label="Search medications and nutrition items"
+        />
+        <select id="med-status-filter" class="control-select" aria-label="Filter by clinical safety category">
+          <option value="all" id="opt-med-all">All Safety Categories</option>
+          <option value="approved" id="opt-med-approved">ACOG First-Line / Approved Only</option>
+          <option value="caution" id="opt-med-caution">Daily Limit / Consult OB Only</option>
+          <option value="avoid" id="opt-med-avoid">Contraindicated / Avoid in Pregnancy</option>
+        </select>
+      </div>
+
+      <div id="med-cards-grid" class="triage-cards-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Clinical Educational Disclaimer Footer -->
+  <footer class="clinical-footer">
+    <div>
+      <strong id="footer-disc-title">Clinical Reference Notice:</strong><span id="footer-disc-body"> Content is structured according to ACOG (American College of Obstetricians and Gynecologists), SMFM, and CDC perinatal clinical guidelines for educational preparation and shared decision-making. It does not replace individualized medical evaluation by your OB/GYN, Maternal-Fetal Medicine specialist, or Certified Nurse-Midwife.</span>
+    </div>
+    <div>
+      <strong id="footer-priv-title">100% Private &amp; Offline:</strong><span id="footer-priv-body"> All due-date calculations and visit checklists run locally in your browser with zero external tracking.</span>
+    </div>
+  </footer>
+
+  <script src="clinical-data.js" defer></script>
+  <script src="i18n.js" defer></script>
+  <script src="atlas3d.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
